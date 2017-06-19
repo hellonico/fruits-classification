@@ -50,6 +50,11 @@
   (dorun (pmap train-fn training-observation-label-seq))
   (dorun (pmap test-fn training-observation-label-seq))))
 
+(defn -main[& args]
+  (if (empty? args)
+    (println "Usage: lein run -m fruits.prepare <path-to-image-folder>")
+    (fruits.prepare/build-image-data  (first args) 50)))
+
 (comment
 
   (require '[fruits.prepare])

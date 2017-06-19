@@ -47,6 +47,16 @@
   (let[obs (map #(image-file->observation %) image-paths) ]
   (map #(index->class-name (util/max-index (:labels %))) (execute/run nippy (into-array obs)))))
 
+(defn -main[& args]
+  (if (empty? args)
+    (println "Usage: lein run -m fruits.simple <nippy-file> <path-to-image(s)>")
+    (let[ nippy (util/read-nippy-file (first args))
+          input (io/as-file (second args))]
+      (clojure.pprint/pprint
+        (if (.isDirectory input)
+         (let[imgs (list-images-in input)] (zipmap imgs (guesses nippy imgs)))
+         [input (guess nippy input)])))))
+
 (comment
 
   (require '[cortex.util :as util])

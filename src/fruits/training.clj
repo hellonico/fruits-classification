@@ -64,10 +64,14 @@
      class-mapping
      {}) ))
 
+(defn -main[& args]
+  (if (empty? args)
+    (println "Usage: lein run -m fruits.training <path-to-folder-containing-training-and-testing-folders>")    
+    (fruits.training/training (first args))))
+
 (comment
 
   (require '[fruits.training])
   (fruits.training/training "fruits/")
-  ; will output a file
 
   )

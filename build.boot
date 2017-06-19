@@ -24,6 +24,7 @@
   (println "Dev profile running")
   (set-env!
    :init-ns 'user
+   :source-paths #{"src"}
    :dependencies #(into % '[[org.clojure/tools.namespace "0.2.11"]]))
 
   ;; Makes clojure.tools.namespace.repl work per https://github.com/boot-clj/boot/wiki/Repl-reloading
