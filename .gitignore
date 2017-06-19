@@ -1,0 +1,7 @@
+target
+testing
+training
+dev
+test
+.lein-repl-history
+.DS_Store
