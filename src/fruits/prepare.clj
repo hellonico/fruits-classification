@@ -36,8 +36,8 @@
 (defn build-image-data
   [original-data-dir target-image-size]
   (let [
-        training-dir (.getParent (io/as-file original-data-dir) "/training")
-        testing-dir (.getParent (io/as-file original-data-dir) "/testing")
+        training-dir (str (.getParent (io/as-file original-data-dir)) "/training")
+        testing-dir (str (.getParent (io/as-file original-data-dir)) "/testing")
         
         files (gather-files original-data-dir)
         pfiles (partition (int (/ (count files) 2)) (shuffle files))
