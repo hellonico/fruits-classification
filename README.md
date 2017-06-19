@@ -15,7 +15,7 @@ The summary of this classification experiment is as below:
 
 - first, convert the images, and prepare a given folder structure so that cortex can use the pictures via datasources in the next step ([prepare.clj](src/fruits/prepare.clj))
 - train the network, using two datasources, one for training, and one for testing. ([training.clj](src/fruits/training.clj))
-- use new external images to validate the trained network ([simple](src/fruits/simple.clj))
+- use new external images to validate the trained network ([simple.clj](src/fruits/simple.clj))
 
 # images download
 
