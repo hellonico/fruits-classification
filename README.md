@@ -17,7 +17,7 @@ The summary of this classification experiment is as below:
 - train the network, using two datasources, one for training, and one for testing. ([training.clj](src/fruits/training.clj))
 - use new external images to validate the trained network ([simple](src/fruits/simple.clj))
 
-# image (data) download
+# images download
 
 A large amount of fruits images have already been gathered and put in the ([fruits/original](fruits/original)) folder. The original structure should be such that the name of the fruit appears in the file name. You can test with your own image files of course.
 
@@ -84,6 +84,14 @@ where:
 -  50 is the target size for the training and testing picture.
 
 Once the preprocessing of images has been done, we can now go to the training network phase.
+
+The preparation phase can be run directly from the command line using:
+
+```
+lein run -m fruits.prepare "fruits/original" 
+```
+
+The first argument is the folder to the original sized pictures. The testing and training folders will be created at the same level.
 
 # training
 
@@ -169,19 +177,19 @@ The images used, the confusion map, and the accuracy can all be checked visually
 
 On each training iteration the network will be checked against images from the testing folder, and will be given a score. If that score is higher than the previous iteration, then the updated network will be saved in the nippy file.
 
+# use the trained network
 
-# use the network
+During training, the trained network is periodically saved to a file with a default name of trained-network.nippy.
 
-The trained network is periodically saved to a file with a default name of trained-network.nippy.
 The nippy file is mostlly only a binary version of a big clojure map. 
-FIrst we load the network saved in a nippy  file:
+To use the trained network, you first load the network saved in a nippy  file:
 
 ```
 (def nippy
   (util/read-nippy-file "trained-network.nippy"))
 ```
 
-Then the main client function in simple.clj, is the guess function. It takes a loaded trained network, and an image-path and run the network with the converted input.
+Then the main client function in simple.clj, is the guess function (or its sibling, *guesses* for multiple inputs). It takes a loaded trained network, and an image-path and run the network with the converted input.
 
 ```
 (defn guess [nippy image-path]
@@ -198,17 +206,18 @@ The steps are explained below below:
 1. convert the image to a compatible format (same size as network) and turn it into an observation, something that the network can act upon
 2. make a run of the network. the input is an array of obervations
 3. the return object is also an array, one result for each element of the input array. (so take the first element)
-4. basically, each result is a score for each of the possible input, so util/max-index gets one of the possible categoies ("cat", "dog") and retrieve the one with the highest score
+4. basically, each result is a score for each of the possible input, so util/max-index gets one of the possible categoies ("apple", "apricot" … ) and retrieve the one with the highest score
 
-![resources/4-ways-cheer-up-depressed-cat.jpg](resources/4-ways-cheer-up-depressed-cat.jpg)
+![](samples/apple-1.jpg)
+
+
 
 ```
-catsdogs.simple=> (guess nippy "resources/4-ways-cheer-up-depressed-cat.jpg")
-; CUDA backend creation failed, reverting to CPU
-; "cat"
+fruits.simple=> (guess nippy "samples/apple-1.jpg")
+; "apple"
 ```
 
-The client part of the network can be used directly from the command line using *Leiningen*:
+The client part of the network can also be used directly from the command line using *Leiningen*:
 
 ```
 lein run -m fruits.simple samples/trained-fruits.nippy samples   
