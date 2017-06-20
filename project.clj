@@ -1,4 +1,4 @@
-(defproject mnist-classification "0.9.9-SNAPSHOT"
+(defproject fruits-classification "0.1-SNAPSHOT"
   :description "An example of using experiment/classification on mnist."
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [thinktopic/experiment "0.9.9"]

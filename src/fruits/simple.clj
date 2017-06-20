@@ -20,18 +20,28 @@
 
 ; I want to avoid this, should come from the network
 (def categories 
-  (map #(.getName %) (filter #(.isDirectory %) (.listFiles (io/file "fruits/training")))))
+  (zipmap (range) (map #(.getName %) (filter #(.isDirectory %) (.listFiles (io/file "fruits/training"))))))
 
-(defn index->class-name[n]
-  (nth categories n))
+; (defn index->class-name[n]
+;   (nth categories n))
 
-(defn guess [nippy image-path]
+(defn guess-with-mappings [nippy image-path mapping-file]
+  (let[obs (image-file->observation image-path)  mappings (read-string (slurp mapping-file))]
+  (-> (execute/run nippy [obs])
+   first
+   :labels
+   util/max-index
+   mappings)))
+
+(defn guess 
+  ([nippy image-path] (guess nippy image-path categories))
+  ([nippy image-path mappings]
   (let[obs (image-file->observation image-path) ]
   (-> (execute/run nippy [obs])
    first
    :labels
    util/max-index
-   index->class-name)))
+   mappings))))
 
 (defn guess-debug [nippy image-path]
   (let[obs (image-file->observation image-path) ]
@@ -45,7 +55,7 @@
 
 (defn guesses [nippy image-paths]
   (let[obs (map #(image-file->observation %) image-paths) ]
-  (map #(index->class-name (util/max-index (:labels %))) (execute/run nippy (into-array obs)))))
+  (map #(categories (util/max-index (:labels %))) (execute/run nippy (into-array obs)))))
 
 (defn -main[& args]
   (if (empty? args)
