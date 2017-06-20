@@ -61,6 +61,7 @@
 
   (require '[cortex.util :as util])
   (def nippy (util/read-nippy-file "samples/trained-fruits.nippy"))
+  
   (require '[fruits.simple :as simple])
   ; test one
   (simple/guess nippy "samples/apple-1.jpg")
