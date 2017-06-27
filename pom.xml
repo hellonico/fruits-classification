@@ -3,13 +3,13 @@
   <groupId>fruits-classification</groupId>
   <artifactId>fruits-classification</artifactId>
   <packaging>jar</packaging>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <name>fruits-classification</name>
   <description>An example of using experiment/classification on mnist.</description>
   <scm>
     <connection>scm:git:git://github.com/hellonico/fruits-classification.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/hellonico/fruits-classification.git</developerConnection>
-    <tag>dabb8d2ec01f5c0b54a3f3767d1ca7f0e59cc455
+    <tag>0ae607a0c6c5548efa44161b01ba27918ee1669c
 </tag>
     <url>https://github.com/hellonico/fruits-classification</url>
   </scm>
@@ -51,6 +51,16 @@
         <enabled>true</enabled>
       </releases>
     </repository>
+    <repository>
+      <id>hellonico</id>
+      <url>http://hellonico.tokyo:8081/repository/hellonico/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
   </repositories>
   <dependencyManagement>
     <dependencies/>
@@ -60,43 +70,113 @@
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
       <version>1.8.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.imgscalr</groupId>
+          <artifactId>imgscalr-lib</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>thinktopic</groupId>
       <artifactId>experiment</artifactId>
       <version>0.9.9</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.imgscalr</groupId>
+          <artifactId>imgscalr-lib</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>tools.cli</artifactId>
       <version>0.3.5</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.imgscalr</groupId>
+          <artifactId>imgscalr-lib</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>thinktopic</groupId>
       <artifactId>think.image</artifactId>
       <version>0.4.8</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.imgscalr</groupId>
+          <artifactId>imgscalr-lib</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.hellonico</groupId>
+      <artifactId>imgscalr-lib</artifactId>
+      <version>4.3</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.imgscalr</groupId>
+          <artifactId>imgscalr-lib</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.hellonico</groupId>
+      <artifactId>sizing</artifactId>
+      <version>0.1.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.imgscalr</groupId>
+          <artifactId>imgscalr-lib</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.bytedeco.javacpp-presets</groupId>
       <artifactId>cuda</artifactId>
       <version>8.0-1.2</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.imgscalr</groupId>
+          <artifactId>imgscalr-lib</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>proto-repl</groupId>
       <artifactId>proto-repl</artifactId>
       <version>0.3.1</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.imgscalr</groupId>
+          <artifactId>imgscalr-lib</artifactId>
+        </exclusion>
+      </exclusions>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>proto-repl-charts</groupId>
       <artifactId>proto-repl-charts</artifactId>
       <version>0.3.1</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.imgscalr</groupId>
+          <artifactId>imgscalr-lib</artifactId>
+        </exclusion>
+      </exclusions>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>tools.namespace</artifactId>
       <version>0.2.11</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.imgscalr</groupId>
+          <artifactId>imgscalr-lib</artifactId>
+        </exclusion>
+      </exclusions>
       <scope>test</scope>
     </dependency>
   </dependencies>

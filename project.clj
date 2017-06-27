@@ -1,6 +1,6 @@
 (defproject fruits-classification "0.1"
   :description "An example of using experiment/classification on mnist."
-  :repositories {"hellonico"   {:url "http://hellonico.tokyo:8081/repository/hellonico/"}}
+  :repositories {"hellonico"   {:sign-releases false :url "http://hellonico.tokyo:8081/repository/hellonico/"}}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [thinktopic/experiment "0.9.9"]
                  [org.clojure/tools.cli "0.3.5"]
