@@ -19,7 +19,7 @@
     :colorspace :gray)})
 
 ; I want to avoid this, should come from the network
-(def categories 
+(def categories
   (zipmap (range) (map #(.getName %) (filter #(.isDirectory %) (.listFiles (io/file "fruits/training"))))))
 
 ; (defn index->class-name[n]
@@ -33,7 +33,7 @@
    util/max-index
    mappings)))
 
-(defn guess 
+(defn guess
   ([nippy image-path] (guess nippy image-path categories))
   ([nippy image-path mappings]
   (let[obs (image-file->observation image-path) ]
@@ -49,8 +49,8 @@
    first)))
 
 (defn list-images-in[folder]
-  (into [] (filter #(let[fname (clojure.string/lower-case %) ] 
-    (or (clojure.string/includes? fname ".jpg") (clojure.string/includes? fname ".png") )  ) 
+  (into [] (filter #(let[fname (clojure.string/lower-case %) ]
+    (or (clojure.string/includes? fname ".jpg") (clojure.string/includes? fname ".png") )  )
     (map #(.getPath %) (into [] (.listFiles (io/file "samples")))))))
 
 (defn guesses [nippy image-paths]
@@ -59,19 +59,21 @@
 
 (defn -main[& args]
   (if (empty? args)
-    (println "Usage: lein run -m fruits.simple <nippy-file> <path-to-image(s)>")
+    (println "Usage: lein run -m fruits.simple <nippy-file> <path-to-image(s)> <mapping-file>")
     (let[ nippy (util/read-nippy-file (first args))
-          input (io/as-file (second args))]
+          input (io/as-file (second args))
+          mapping (last args)
+          ]
       (clojure.pprint/pprint
         (if (.isDirectory input)
          (let[imgs (list-images-in input)] (zipmap imgs (guesses nippy imgs)))
-         [input (guess nippy input)])))))
+         [input (guess-with-mappings nippy input mapping)])))))
 
 (comment
 
   (require '[cortex.util :as util])
   (def nippy (util/read-nippy-file "samples/trained-fruits.nippy"))
-  
+
   (require '[fruits.simple :as simple])
   ; test one
   (simple/guess nippy "samples/apple-1.jpg")
@@ -79,5 +81,5 @@
   (simple/guesses nippy (simple/list-images-in "samples"))
   ; compare inline
   (clojure.pprint/pprint (zipmap (simple/list-images-in "samples") (simple/guesses nippy (simple/list-images-in "samples"))))
-  
+
 )

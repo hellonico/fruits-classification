@@ -1,5 +1,5 @@
 (ns fruits.training
-  (require 
+  (require
     [clojure.java.io :as io]
     [think.image.patch :as patch]
     [mikera.image.core :as imagez]
@@ -7,7 +7,7 @@
     [cortex.experiment.classification :as classification]
     [cortex.nn.layers :as layers]))
 
-(defn initial-description-preset [input-w input-h num-classes] 
+(defn initial-description-preset [input-w input-h num-classes]
     [(layers/input input-w input-h 1 :id :data)
      (layers/convolutional 5 0 1 20)
      (layers/max-pooling 2 0 2)
@@ -26,11 +26,11 @@
      (layers/linear num-classes)
      (layers/softmax :id :labels)])
 
-(defn observation->image [ image-size observation] 
+(defn observation->image [ image-size observation]
   (patch/patch->image observation image-size))
 
 (defn training[base-folder]
- (let[  
+ (let[
   dataset-folder  base-folder
   training-folder (str dataset-folder "training")
   test-folder     (str dataset-folder "testing")
@@ -54,8 +54,8 @@
      (experiment-util/create-dataset-from-folder class-mapping))
 
   initial-description (initial-description-preset image-size image-size num-classes)
-    
   ]
+  (spit (str (.getName (io/as-file base-folder)) "-mapping.edn") (zipmap (range) categories))
   (classification/perform-experiment
      initial-description
      train-ds
@@ -66,7 +66,7 @@
 
 (defn -main[& args]
   (if (empty? args)
-    (println "Usage: lein run -m fruits.training <path-to-folder-containing-training-and-testing-folders>")    
+    (println "Usage: lein run -m fruits.training <path-to-folder-containing-training-and-testing-folders>")
     (fruits.training/training (first args))))
 
 (comment

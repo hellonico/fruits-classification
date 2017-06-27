@@ -1,4 +1,5 @@
-(set-env! 
+(set-env!
+  :source-paths #{"src"}
   :dependencies '[[org.clojure/clojure "1.8.0"]
                  [thinktopic/experiment "0.9.9"]
                  [org.clojure/tools.cli "0.3.5"]
