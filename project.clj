@@ -3,10 +3,14 @@
   :repositories {"hellonico"   {:sign-releases false :url "https://repository.hellonico.info/repository/hellonico"}}
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [thinktopic/experiment "0.9.22"]
+                 
+
                  [org.clojure/tools.cli "0.3.5"]
 
                  ; to manipulate images
                  [thinktopic/think.image "0.4.8" ]
+                 [thinktopic/think.datatype "0.3.17"]
+                
                  [org.hellonico/imgscalr-lib "4.3"]
                  [org.hellonico/sizing "0.1.0"]
                  ; [net.mikera/imagez "0.12.0"]

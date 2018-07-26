@@ -1,5 +1,5 @@
 (ns fruits.training
-  (require
+  (:require
     [clojure.java.io :as io]
     [think.image.patch :as patch]
     [mikera.image.core :as imagez]
@@ -56,13 +56,13 @@
   initial-description (initial-description-preset image-size image-size num-classes)
   ]
   (spit (str (.getName (io/as-file base-folder)) "-mapping.edn") (zipmap (range) categories))
+  (let [listener (classification/create-listener observation->image class-mapping {})]
   (classification/perform-experiment
      initial-description
      train-ds
      test-ds
-     (partial observation->image image-size)
-     class-mapping
-     {}) ))
+     listener)
+     ) ))
 
 (defn -main[& args]
   (if (empty? args)
